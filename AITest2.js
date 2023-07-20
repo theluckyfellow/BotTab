@@ -19,7 +19,7 @@ let conversationHistory = [
     },
     {
         'role': 'user',
-        'content': 'Please do not speak too often.'
+        'content': 'Please do not speak too often. Only use the commands. Do not send plain text.'
     }
 ];
 
@@ -85,6 +85,10 @@ async function setup() {
           capture2.elt.play();
           capture2.hide();
         });
+    }
+    else
+    {
+      console.log('Sorry, only found ' + cameras.length +' camera*.');
     }
   });
   noLoop();
@@ -257,10 +261,10 @@ async function callGPT3API(inputText) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer your-key-here' //put your key here. keep the word "Bearer"
+            'Authorization': 'Bearer yourKeyHere' //put your key here. keep the word "Bearer"
         },
         body: JSON.stringify({
-            'model': 'gpt-4',
+            'model': 'gpt-3.5-turbo-16k',
             'messages': conversationHistory,
             'max_tokens': 1000,
             'temperature': 0.4 // Adjust this value to control randomness
@@ -293,10 +297,10 @@ async function callGPT3APISys(inputText) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer your-key-here' //put your key here. keep the word "Bearer"
+            'Authorization': 'Bearer yourKeyHere' //put your key here. keep the word "Bearer"
         },
         body: JSON.stringify({
-            'model': 'gpt-4',
+            'model': 'gpt-3.5-turbo-16k',
             'messages': conversationHistory,
             'max_tokens': 1000,
             'temperature': 0.4 // Adjust this value to control randomness
@@ -356,7 +360,14 @@ function parseCommand(command) {
             goLeft();
             break;
         default:
+            conversationHistory.push(
+          {
+              'role': 'system',
+              'content': 'Invalid command, message not used'
+          }
+          );
             console.log('Invalid command');
+
     }
 }
 
@@ -393,6 +404,12 @@ function writeWorkingMem(text) {
 function addLongMem(memkey, text) {
     if(longTermMemory.hasOwnProperty(memkey)) {
         console.log('Error: Key already exists. Use updateLongMem to update the value.');
+        conversationHistory.push(
+          {
+              'role': 'system',
+              'content': 'Error: Key already exists. Use updateLongMem to update the value.'
+          }
+          );
     } else {
         longTermMemory[memkey] = text;
     }
@@ -404,6 +421,12 @@ function updateLongMem(memkey, text) {
         longTermMemory[memkey] = text;
     } else {
         console.log('Error: Key does not exist. Use addLongMem to add the value.');
+         conversationHistory.push(
+          {
+              'role': 'system',
+              'content': 'Error: Key does not exist. Use addLongMem to add the value.'
+          }
+          );
     }
     regularDelay = millis()+1000;
 }
@@ -480,13 +503,13 @@ function removeOldMessages() {
         conversationHistory.splice(index, 1);
         systemMessages.shift();
     }
-    while (userMessages.length > 50) {
+    while (userMessages.length > 30) {
         let index = conversationHistory.indexOf(userMessages[0]);
         conversationHistory.splice(index, 1);
         userMessages.shift();
     }
 
-    while (assistantMessages.length > 50) {
+    while (assistantMessages.length > 30) {
         let index = conversationHistory.indexOf(assistantMessages[0]);
         conversationHistory.splice(index, 1);
         assistantMessages.shift();
