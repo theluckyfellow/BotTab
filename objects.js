@@ -11,6 +11,7 @@ class something
      this.dist = 0;
      this.sustain = 0.1
      this.calcDist();
+     
    }
    
    getDist()
@@ -39,9 +40,13 @@ class something
      return this.cf;
    }
    
+   //you need to calibrate this bassed on the placement of the cams
+   //cams should be looking straight forward and at the same vert angle
+   //slight misalignment isn't a big deal.
+   //original cams has 140 degree lenses
    calcDist()
    {
-     return pow(abs(this.x2-this.x1),-1.154)*29;
+     return pow(abs(this.x2-this.x1),-0.78)*25.96;
    }
    
    next(x1, y1, x2, y2, cf)
