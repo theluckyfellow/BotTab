@@ -25,10 +25,12 @@ void setup() {
 
 void loop() {
     val = "";
+    int delayTime = 0;
     analogWrite(ENA1, 95);// motor speed  
     analogWrite(ENA2, 95);// motor speed  
     if (Serial.available()) {
-        val = Serial.readStringUntil('\n');
+        val = Serial.readStringUntil(',');
+        delayTime = Serial.parseInt();
         val.trim();
     }
 
@@ -38,13 +40,13 @@ void loop() {
       digitalWrite(IN2,HIGH);
       digitalWrite(IN4,HIGH);// rotate forward
       digitalWrite(IN3,LOW);
-      delay(100);
+      delay(50);
       analogWrite(ENA1, 140);// motor speed  
       analogWrite(ENA2, 140);
-      delay(700);
+      delay(delayTime);
       analogWrite(ENA1, 95);// motor speed  
       analogWrite(ENA2, 95);
-      delay(100);
+      delay(50);
       digitalWrite(IN1,LOW);// rotate forward
       digitalWrite(IN2,LOW);
       digitalWrite(IN4,LOW);// rotate forward
@@ -56,13 +58,13 @@ void loop() {
       digitalWrite(IN2,LOW);
       digitalWrite(IN4,LOW);// rotate forward
       digitalWrite(IN3,HIGH);
-      delay(100);
+      delay(50);
       analogWrite(ENA1, 140);// motor speed  
       analogWrite(ENA2, 140);
-      delay(700);
+      delay(delayTime);
       analogWrite(ENA1, 95);// motor speed  
       analogWrite(ENA2, 95);
-      delay(100);
+      delay(50);
       digitalWrite(IN1,LOW);// rotate forward
       digitalWrite(IN2,LOW);
       digitalWrite(IN4,LOW);// rotate forward
@@ -74,13 +76,13 @@ void loop() {
       digitalWrite(IN2,HIGH);
       digitalWrite(IN4,LOW);// rotate forward
       digitalWrite(IN3,HIGH);
-      delay(100);
+      delay(50);
       analogWrite(ENA1, 140);// motor speed  
       analogWrite(ENA2, 140);
-      delay(1000);
+      delay(delayTime);
       analogWrite(ENA1, 95);// motor speed  
       analogWrite(ENA2, 95);
-      delay(100);
+      delay(50);
       digitalWrite(IN1,LOW);// rotate forward
       digitalWrite(IN2,LOW);
       digitalWrite(IN4,LOW);// rotate forward
@@ -92,13 +94,13 @@ void loop() {
       digitalWrite(IN2,LOW);
       digitalWrite(IN4,HIGH);// rotate forward
       digitalWrite(IN3,LOW);
-      delay(100);
+      delay(50);
       analogWrite(ENA1, 140);// motor speed  
       analogWrite(ENA2, 140);
-      delay(1000);
+      delay(delayTime);
       analogWrite(ENA1, 95);// motor speed  
       analogWrite(ENA2, 95);
-      delay(100);
+      delay(50);
       digitalWrite(IN1,LOW);// rotate forward
       digitalWrite(IN2,LOW);
       digitalWrite(IN4,LOW);// rotate forward
