@@ -12,8 +12,8 @@ You may want to switch from GPT 4 to GPT 3.5 Turbo because GPT 4 is expensive an
 Connect to the Arduino board and cameras.
 Connect to the site with Google Chrome, the only supported browser currently.
 You'll first be prompted to enable the serial connection.
-You may need to go into the site permissions and enable automatic access to cameras if it doesn't show the video feeds.
-Make open the browser console to view errors and information.
+# You need to go into the site permissions and enable automatic access "allow" to cameras
+Make open the browser console to view errors and information. (ctrl shift i)
 
 # To do
 1. Add more visual capabilities and sensors to detect more objects and walls.
