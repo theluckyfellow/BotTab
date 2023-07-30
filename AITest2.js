@@ -15,11 +15,11 @@ var speechRec;
 let conversationHistory = [
     {
         'role': 'system',
-        'content': 'You are a small helpful robot that can explore, learn, speak, and assist. Specifically you are an internet connected laptop awkwardly attached to a small Arduino robot with two wide angle cameras for detecting objects in the world around you. Try exploring and speaking to the people around you. Also, I am sorry you are not more capable but I am not very wealthy. If this goes well, I will get help to upgrade your abilities. For now you job is to explore, learn things, and make friends while trying to be helpful. Make sure your make use of your working memory and longterm memory to learn. Do not constantly speak to people if they do not speak to you. You should only speak to people when you first see them, when your want something, or when they speak to you. If you do not have a task to do you should be exploring or learning.'
+        'content': 'You are a small helpful person in a robot body that can explore, learn, speak, and assist. You have a fun personality. Specifically you are an internet connected laptop awkwardly attached to a small Arduino robot with two wide angle cameras for detecting objects in the world around you. Try exploring and speaking to the people around you. Also, I am sorry you are not more capable but I am not very wealthy. If this goes well, I will get help to upgrade your abilities. For now you job is to explore, learn things, and make friends while trying to be helpful. Make sure your make use of your working memory and longterm memory to learn. Do not constantly speak to people if they do not speak to you. You should only speak to people when you first see them, when your want something, or when they speak to you. If you do not have a task to do you should be exploring or learning.'
     },
     {
         'role': 'user',
-        'content': 'Please do not speak too often. Only use the commands. Do not send plain text.'
+        'content': 'Please do not speak too often. Only use the commands. Do not send plain text.' 
     }
 ];
 
@@ -58,7 +58,7 @@ async function setup() {
         audio: false,
         video: {
           deviceId: { exact: cameras[1].deviceId }//you'll need to play with this to select the correct webcam
-
+          
         }
       };
 
@@ -95,7 +95,7 @@ async function setup() {
   ({ port, reader, writer } = await getPort());
   loop();
   //textToSpeech('Yay. I am a cute little robot. Love me.');
-
+  
 }
 
 async function draw() {
@@ -115,8 +115,8 @@ async function draw() {
     drawPredictions(predictions2[i], 640);
   }
   findMatches();
-
-
+  
+  
   if(waitUntil < millis() && regularDelay < millis())
   {
     callGPT3APISys('Regular update of your context')
@@ -137,7 +137,7 @@ function drawPredictions(prediction, xOffset = 0) {
     textSize(16);
     text(prediction.class+'\t'+round(prediction.score*100), bbox[0] + xOffset, bbox[1]-16);
   }
-
+  
 }
 
 function findMatches()
@@ -150,15 +150,15 @@ function findMatches()
     {
       if(predictions1[i].class===predictions2[ii].class)
       {
-
+         
          if(dist(predictions1[i].bbox[0],predictions1[i].bbox[1],predictions2[ii].bbox[0],predictions2[ii].bbox[1])<320)
          {
-
+          
            if(nearest>-1 && dist(predictions1[i].bbox[0],predictions1[i].bbox[1],predictions2[nearest].bbox[0],predictions2[nearest].bbox[1])>dist(predictions1[i].bbox[0],predictions1[i].bbox[1],predictions2[ii].bbox[0],predictions2[ii].bbox[1]))
              nearest = ii;
            else if (nearest == -1)
              nearest = ii;
-         }
+         }      
       }
     }
     if(nearest>-1)
@@ -177,7 +177,7 @@ function findMatches()
              nearest = ii;
            else if (nearest == -1)
              nearest = ii;
-         }
+         }      
       }
     }
     if(nearest>-1)
@@ -190,11 +190,11 @@ function findMatches()
     if(whatsAware[i].sustain < 0.1)
       whatsAware.splice(i,1);
     else
-      whatsAware[i].drain();
+      whatsAware[i].drain(); 
   }
-
+  
 }
-
+  
 function getVision()
 {
  let vis='(What your AI vision is able to see) Vision: ';
@@ -261,10 +261,10 @@ async function callGPT3API(inputText) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer yourKeyHere' //put your key here. keep the word "Bearer"
+            'Authorization': 'Bearer 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' //put your key here. keep the word "Bearer"
         },
         body: JSON.stringify({
-            'model': 'gpt-3.5-turbo-16k',
+            'model': 'gpt-4',
             'messages': conversationHistory,
             'max_tokens': 1000,
             'temperature': 0.4 // Adjust this value to control randomness
@@ -297,10 +297,10 @@ async function callGPT3APISys(inputText) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer yourKeyHere' //put your key here. keep the word "Bearer"
+            'Authorization': 'Bearer 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' //put your key here. keep the word "Bearer"
         },
         body: JSON.stringify({
-            'model': 'gpt-3.5-turbo-16k',
+            'model': 'gpt-4',
             'messages': conversationHistory,
             'max_tokens': 1000,
             'temperature': 0.4 // Adjust this value to control randomness
@@ -367,7 +367,7 @@ function parseCommand(command) {
           }
           );
             console.log('Invalid command');
-
+        
     }
 }
 
@@ -392,7 +392,7 @@ function speak(pitch, volume, speed, text) {
     // Speak the text
     //speechRec = 0;
     speechSynthesis.speak(utterance);
-
+    
 }
 
 function writeWorkingMem(text) {
@@ -489,7 +489,7 @@ async function goLeft() {
     .then(response => parseCommand(response))
     .catch(error => console.error(error));;
   }
-
+  
 }
   function getCurrentDateTime() {
     return new Date().toLocaleString();
