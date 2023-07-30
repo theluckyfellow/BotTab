@@ -2,7 +2,7 @@
 A full robotic personal assistant that runs from a browser tab.
 
 # What you need
-1. A basic Arduino robot with two cameras mounted on it.
+1. A basic **Arduino** robot with **two cameras** mounted on it.
 2. The cameras and Arduino should connect to a computer running the browser tab.
 
 # How to run
