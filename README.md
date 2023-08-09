@@ -8,7 +8,7 @@ A full robotic personal assistant that runs from a browser tab.
 # How to run
 1. This is a static site that can be hosted easily. 
 2. Be sure to find where to enter your gpt keys in the two places in the code where it's needed... I should make it a variable later...
-3. You may want to switch from GPT 4 to GPT 3.5 Turbo because GPT 4 is expensive and has rate limits. However GPT 3.5 is dumb... very dumb
+3. (some linux users) Make sure your user is in the dialout and/or uucp groups
 4. Connect to the Arduino board and cameras.
 5. Connect to the site with Google Chrome, the only supported browser currently.
 5. You'll first be prompted to enable the serial connection.
